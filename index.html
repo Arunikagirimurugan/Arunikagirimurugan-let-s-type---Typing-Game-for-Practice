@@ -3,121 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Typing Game</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: #f4f4f9;
-        }
-        #game-container {
-            text-align: center;
-            width: 80%;
-            max-width: 600px;
-            background-color: #ffffff;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
-        #word-display {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        #user-input {
-            width: 100%;
-            padding: 10px;
-            font-size: 18px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        #timer, #score {
-            margin: 10px 0;
-            font-size: 18px;
-        }
-        #start-button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        #start-button:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <title>Typing Speed Game</title>
+    <link rel="stylesheet" href="gamestyle.css">
 </head>
 <body>
+    <div id="gameContainer">
+        <h1>Typing Speed Game</h1>
+        <div id="textToType">Type this text as fast as you can!</div>
+        <input type="text" id="userInput" placeholder="Start typing here..." />
+        <br>
+        <button id="startButton">Start</button>
+        <button id="resetButton">Reset</button>
+        <div id="result"></div>
+    </div>
 
-<div id="game-container">
-    <h1>Let's Type</h1>
-    <div id="word-display">Press Start to Begin</div>
-    <input type="text" id="user-input" placeholder="Start typing here..." disabled />
-    <div id="timer">Time: <span id="time-left">30</span> seconds</div>
-    <div id="score">Score: <span id="current-score">0</span></div>
-    <button id="start-button" onclick="startGame()">Start Game</button>
-</div>
-
-<script>
-    const words = ["javascript", "programming", "typing", "game", "html", "css", "frontend", "backend", "developer", "keyboard"];
-    let timeLeft = 30;
-    let score = 0;
-    let currentWord = "";
-    let timer;
-
-    const wordDisplay = document.getElementById("word-display");
-    const userInput = document.getElementById("user-input");
-    const timeLeftDisplay = document.getElementById("time-left");
-    const scoreDisplay = document.getElementById("current-score");
-    const startButton = document.getElementById("start-button");
-
-    function startGame() {
-        score = 0;
-        timeLeft = 30;
-        startButton.disabled = true;
-        userInput.disabled = false;
-        userInput.value = "";
-        userInput.focus();
-        nextWord();
-        timer = setInterval(updateTime, 1000);
-    }
-
-    function updateTime() {
-        if (timeLeft > 0) {
-            timeLeft--;
-            timeLeftDisplay.textContent = timeLeft;
-        } else {
-            endGame();
-        }
-    }
-
-    function endGame() {
-        clearInterval(timer);
-        startButton.disabled = false;
-        userInput.disabled = true;
-        wordDisplay.textContent = "Game Over! Final Score: " + score;
-    }
-
-    function nextWord() {
-        currentWord = words[Math.floor(Math.random() * words.length)];
-        wordDisplay.textContent = currentWord;
-        userInput.value = "";
-    }
-
-    userInput.addEventListener("input", () => {
-        if (userInput.value.trim() === currentWord) {
-            score++;
-            scoreDisplay.textContent = score;
-            nextWord();
-        }
-    });
-</script>
-
+    <script src="gamescript.js"></script>
 </body>
 </html>
